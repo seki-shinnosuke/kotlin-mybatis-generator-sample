@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: localhost
+  application:
+    name: kotlin-mybatis-generator-sample
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:33306/sample}
+    username: ${SPRING_DATASOURCE_USERNAME:sample-user}
+    password: ${SPRING_DATASOURCE_PASSWORD:password}
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 4
+      minimym-idle: 10
+      leak-detection-threshold: 120000

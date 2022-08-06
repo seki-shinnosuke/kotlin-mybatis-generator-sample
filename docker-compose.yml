@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    image: mysql:8.0.30-oracle
+    container_name: db
+    networks:
+      - sample-network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - "33306:3306"
+    volumes:
+      - ./db/ddl:/docker-entrypoint-initdb.d
+      - ./db/mysql_data:/var/lib/mysql
+networks:
+  sample-network:
+    driver: bridge

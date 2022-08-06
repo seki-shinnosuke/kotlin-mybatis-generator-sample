@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+    <!-- Kotlinで出力するように設定 -->
+    <context id="MySQLTables" targetRuntime="MyBatis3Kotlin">
+        <!-- ファイルのDocコメントに日時が書き込まれると毎回Git差分となってしまうためOFF -->
+        <commentGenerator>
+            <property name="suppressDate" value="true" />
+        </commentGenerator>
+        <!-- DBに接続情報 -->
+        <jdbcConnection
+                driverClass="com.mysql.cj.jdbc.Driver"
+                connectionURL="jdbc:mysql://localhost:33306/sample?allowPublicKeyRetrieval=true&amp;useSSL=false"
+                userId="sample-user"
+                password="password" />
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="true"/>
+        </javaTypeResolver>
+        <!-- モデルクラスを生成する設定 -->
+        <javaModelGenerator
+                targetPackage="com.example.db.model"
+                targetProject="src/main/kotlin">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+        <!-- マッパークラスを生成する設定 -->
+        <javaClientGenerator
+                targetPackage="com.example.db.mapper"
+                targetProject="src/main/kotlin"
+                type="XMLMAPPER">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+        <!-- コードを生成するテーブルを指定 -->
+        <table tableName="sample_test">
+            <!-- PKがオートインクリメント系の場合はInsert後に利用したモデルクラスの変数に自動でPK値が返却されるように設定 -->
+            <generatedKey column="sample_test_id" sqlStatement="MySql" identity="true" />
+        </table>
+    </context>
+</generatorConfiguration>
